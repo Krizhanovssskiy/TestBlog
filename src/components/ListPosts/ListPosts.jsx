@@ -1,13 +1,34 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux'
+import { getAllPosts } from '../../_actions';
 
+const ListPosts = ({ getAllPosts, listPosts }) => {
 
-const ListPosts = () => {
+  useEffect(() => {
+    getAllPosts()
+  },[getAllPosts]);
+
   return (
-    <div>
-      ListPosts
-    </div>
+    <ul>
+      {
+        listPosts.map(item => (
+          <li key={item.id}>
+            {item.title}
+          </li>
+        ))
+      }
+    </ul>
   )
 };
 
-export default ListPosts;
+const mapStateToProps = ({ listPosts }) => ({
+  listPosts
+});
+
+export default connect(
+mapStateToProps,
+  {
+    getAllPosts
+  }
+)(ListPosts);

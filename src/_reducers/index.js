@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
+import listPosts from './listPostReducer';
+import popup from './popupReducer'
 
 export default combineReducers({
-  max: [],
+  listPosts,
+  popup,
 })
