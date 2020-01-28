@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { popupHide, createPost } from "../../_actions";
 import {
@@ -11,32 +11,15 @@ import {
   Button } from '../styleComponent/style_PopupAddPost';
 
 
-const PopupAddPost = ({popupHide, createPost}) => {
-
-  const [ titlePost, setTitlePost ] = useState('');
-  const [ bodyPost, setBodyPost ] = useState('');
-
+const PopupAddPost = ({
+                        titlePost,
+                        bodyPost,
+                        onChange,
+                        onCancel,
+                        popupHide,
+                        onSavePost }) => {
   const onStop = (e) => {
     e.stopPropagation();
-  };
-
-  const onSavePost = (e) => {
-    e.preventDefault();
-    console.log(titlePost, bodyPost);
-    createPost({titlePost, bodyPost})
-  };
-
-  const onChange = (name) => (e) => {
-    if (name === 'title') {
-      setTitlePost(e.target.value);
-    } else if (name === 'body') {
-      setBodyPost(e.target.value);
-    }
-  };
-  const onCancel = () => {
-    setTitlePost('');
-    setBodyPost('');
-    popupHide();
   };
 
   return (
@@ -60,7 +43,7 @@ const PopupAddPost = ({popupHide, createPost}) => {
 
         <BoxButton>
           <Button
-            theme={{main: 'red'}}
+            theme={{main: '#E32636'}}
             onClick={onCancel}
           >
             Cancel

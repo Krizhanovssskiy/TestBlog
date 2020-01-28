@@ -1,5 +1,10 @@
 export const GET_LIST_ALL_POSTS = 'GET_LIST_ALL_POSTS';
 export const CREATE_POST = 'CREATE_POST';
+export const DELETE_POST = 'DELETE_POST';
+export const UPDATE_POST = 'UPDATE_POST';
+
+export const RETRIEVE_DETAILS_POST ='RETRIEVE_DETAILS_POST';
+export const ADD_COMMENT_POST = 'ADD_COMMENT_POST';
 
 export const POPUP_SHOW = 'POPUP_SHOW';
 export const POPUP_HIDE = 'POPUP_HIDE';

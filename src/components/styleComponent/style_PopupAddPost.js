@@ -21,7 +21,7 @@ export const PopupForm = styled.form`
   width: 100%;
   height: 450px; 
   border-radius: 5px;
-  background: pink;
+  background: #cccccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,11 +58,12 @@ export const BoxButton = styled.div`
 
 export const Button = styled.button`
   min-width: 100px;
-  padding: 15px 25px;
+  padding: 10px 25px;
   background: ${props => props.theme.main};
   border: 2px solid ${props => props.theme.main};
   color: ${props => props.colorText};
   border-radius: 5px;
+  cursor: pointer;
   :hover {
     background: blue;
     color: white;

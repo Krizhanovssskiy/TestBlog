@@ -8,7 +8,7 @@ const Routing = () => (
   <Switch>
     <Switch>
       <Route path='/' exact component={ListPosts}/>
-      <Route path='/post/' component={SeparatePost}/>
+      <Route path='/post/:id' component={SeparatePost}/>
     </Switch>
   </Switch>
 );

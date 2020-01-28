@@ -1,34 +1,133 @@
 
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux'
-import { getAllPosts } from '../../_actions';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PostListItem from './PostListItem';
+import PopupAddPost from "../PopupAddPost";
+import {
+  popupShow,
+  popupHide,
+  getAllPosts,
+  deletePost,
+  updatePost,
+  createPost } from '../../_actions';
 
-const ListPosts = ({ getAllPosts, listPosts }) => {
+
+const ListPosts = ({
+                     popup,
+                     listPosts,
+                     getAllPosts,
+                     createPost,
+                     deletePost,
+                     updatePost,
+                     popupShow,
+                     popupHide }) => {
+
+  const [detailsPostId, setDetailsPostId] = useState(false);
+  const [ titlePost, setTitlePost ] = useState('');
+  const [ bodyPost, setBodyPost ] = useState('');
+
+  const onEditPost = (item) => {
+    setDetailsPostId(item.id);
+    setTitlePost(item.title);
+    setBodyPost(item.body);
+    popupShow();
+  };
+
+  const onSavePost = (e) => {
+    e.preventDefault();
+
+    if (titlePost === '') return
+    if (detailsPostId) {
+      updatePost({
+        id: detailsPostId,
+        title: titlePost,
+        body: bodyPost
+      })
+    } else {
+      createPost({
+        title: titlePost,
+        body: bodyPost
+      });
+    }
+    popupHide();
+    setTitlePost('');
+    setBodyPost('');
+  };
+
+  const onChange = (name) => (e) => {
+    if (name === 'title') {
+      setTitlePost(e.target.value);
+    } else if (name === 'body') {
+      setBodyPost(e.target.value);
+    }
+  };
+  const onCancel = () => {
+    setTitlePost('');
+    setBodyPost('');
+    popupHide();
+  };
 
   useEffect(() => {
-    getAllPosts()
-  },[getAllPosts]);
+    getAllPosts();
+  },[getAllPosts, listPosts]);
+
+  const onDetailsPost = (id) => {
+    if (id === detailsPostId) {
+      setDetailsPostId(false);
+      return;
+    }
+    setDetailsPostId(id);
+  };
 
   return (
-    <ul>
+    <div>
+      <ul>
+        {
+          listPosts.map(item => {
+            return(
+              <PostListItem
+                key={item.id}
+                item={item}
+                onDetailsPost={onDetailsPost}
+                isOpen={detailsPostId === item.id}
+                deletePost={deletePost}
+                onEditPost={onEditPost}
+                openPopup={popupShow}
+              />
+            )})
+        }
+      </ul>
+
       {
-        listPosts.map(item => (
-          <li key={item.id}>
-            {item.title}
-          </li>
-        ))
+        popup && (
+          <PopupAddPost
+            titlePost={titlePost}
+            bodyPost={bodyPost}
+            onChange={onChange}
+            onCancel={onCancel}
+            popupHide={popupHide}
+            onSavePost={onSavePost}
+          />
+        )
       }
-    </ul>
+    </div>
+
   )
 };
 
-const mapStateToProps = ({ listPosts }) => ({
+const mapStateToProps = ({ popup, listPosts }) => ({
+  popup,
   listPosts
 });
 
 export default connect(
-mapStateToProps,
+  mapStateToProps,
   {
-    getAllPosts
+    popupShow,
+    popupHide,
+    getAllPosts,
+    deletePost,
+    updatePost,
+    createPost
   }
 )(ListPosts);

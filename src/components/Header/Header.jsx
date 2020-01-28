@@ -1,12 +1,12 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { Button } from '../styleComponent/style_PopupAddPost';
+import { Button, BoxButton } from '../styleComponent/style_PopupAddPost';
 
 const Header = ({ popupShow }) => {
 
   return (
-    <div>
+    <BoxButton>
       <Link to='/'>
         List Posts
       </Link>
@@ -18,7 +18,7 @@ const Header = ({ popupShow }) => {
       >
         Add Post
       </Button>
-    </div>
+    </BoxButton>
   )
 };
 

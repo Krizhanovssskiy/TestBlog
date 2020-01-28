@@ -1,34 +1,27 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Header from './components/Header';
-import PopupAddPost from './components/PopupAddPost';
 import { popupShow } from './_actions';
+import { Container } from './style_component';
 
-const App = ({ children, popup, popupShow }) => {
+const App = ({ children, popup, popupShow, popupHide }) => {
+
 
   return (
-    <Fragment>
+    <Container>
       <Header
         popupShow={popupShow}
       />
       {children}
-
-      {
-        popup && (
-            <PopupAddPost />
-          )
-      }
-
-    </Fragment>
+    </Container>
 
   )
 };
 
 export default connect(
-  ({popup}) => ({
-    popup
-  }),
+  null,
   {
     popupShow,
+
   }
 )(App);
